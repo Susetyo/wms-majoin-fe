@@ -1,4 +1,4 @@
-interface IPostData {
+export interface IPostData {
   url:string,
   data: any
 }

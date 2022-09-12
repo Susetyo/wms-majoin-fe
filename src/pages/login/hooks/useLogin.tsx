@@ -7,14 +7,14 @@ import {useNavigate} from "react-router-dom";
 
 const useLogin = () => {
   const navigate = useNavigate()
-  const {username, password,setUsername, setPassword} = useLoginStore((state) => state);
+  const {username, password,setUsername, setPassword, setId} = useLoginStore((state) => state);
   const onChangeUsername = (e:ChangeEvent<HTMLInputElement>) => setUsername(e.target.value);
   const onChangePassword = (e:ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
-  
+
   const loginQuery = useMutation(async() => loginService({username, password}),{
     onSuccess(data) {
-      console.log(data)
       if(data.length > 0){
+        setId(data[0]?.id);
         message.success('Login Success');
         navigate('/barang',{replace:true})
       }else{

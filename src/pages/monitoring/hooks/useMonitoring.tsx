@@ -6,6 +6,8 @@ import useDebounce from '@/commons/utils/useDebounce';
 import useMonitoringStore from '../store';
 import {Form} from 'antd';
 import moment from 'moment';
+import useGeneratePdf from "@/commons/utils/useGeneratePdf";
+import jsPDF from 'jspdf';
 
 interface IPagination{
   page:number,
@@ -15,7 +17,7 @@ interface IPagination{
 const useMonitoring = () => {
   const [form] = Form.useForm();
   const LIMIT = 5;
-  const {filter, setFilter, setDataTable} = useMonitoringStore((state)=> state)
+  const {filter, setFilter, setDataTable, dataTable} = useMonitoringStore((state)=> state)
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5);
   const [searchInput, setSearchInput] = useState<string>('');
@@ -90,6 +92,63 @@ const useMonitoring = () => {
     setFilter({...filter,date:values?.date,type:values?.type})
   }
 
+  const onGeneratePdf = () => {
+    const doc = new jsPDF()
+    const pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
+    const tableColumn = ["Nomor", "Nama", "Qty", "Posisi", "Date","Type"];
+    const tableRows:any = dataTable.rows.map(d => {
+      const rowData = [
+        d.nomor_material,
+        d.nama_material,
+        d.qty,
+        d.posisi,
+        moment(d.date).format('YYYY-MM-DD'),
+        d.type
+      ];
+      return(rowData);
+    });
+    const additionalOptions = {
+      startY: 15,
+      theme: "grid",
+      styles: {
+        font: "times",
+        halign: "center",
+        cellPadding: 3.5,
+        lineWidth: 0.5,
+        lineColor: [0, 0, 0],
+        textColor: [0, 0, 0]
+      },
+      headStyles: {
+        textColor: [0, 0, 0],
+        fontStyle: "normal",
+        lineWidth: 0.5,
+        lineColor: [0, 0, 0],
+        fillColor: [166, 204, 247]
+      },
+      alternateRowStyles: {
+        fillColor: [212, 212, 212],
+        textColor: [0, 0, 0],
+        lineWidth: 0.5,
+        lineColor: [0, 0, 0]
+      },
+      tableLineColor: [0, 0, 0]
+    }
+
+    const title = {
+      text: 'Report',
+      x:pageWidth/2,
+      y:10,
+      options:{
+        align:'center'
+      }
+    }
+
+    const titleSave = `report_${moment(new Date()).format('YYYYMMDDhhmm')}.pdf`;
+
+    
+    useGeneratePdf({tableColumn,tableRows,additionalOptions, title, titleSave})
+  }
+
   return{
     queryMonitoring,
     page,
@@ -102,7 +161,8 @@ const useMonitoring = () => {
     onClose,
     onChangeRangePicker,
     onSelectType,
-    onSubmitFilterSide
+    onSubmitFilterSide,
+    onGeneratePdf
   } 
   
 }

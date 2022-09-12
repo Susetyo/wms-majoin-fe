@@ -5,18 +5,18 @@ import moment from 'moment'
 import useIncoming from './hooks/useIncoming';
 
 const {Option} = Select
+const { TextArea } = Input;
 
 function index() {
   const {   
     form,
+    searchInput,
+    searchInputSecond,
+    options,
     onCheck,
     onChangeSearchInput,
-    searchInput,
-    options,
-    setOptions
+    onSelectInput
   } = useIncoming();
-
-  console.log(options,"OPTIONS")
 
   return (
     <div className="bg-white p-5 md:w-[600px]">
@@ -42,16 +42,31 @@ function index() {
           />
         </Form.Item>
 
-        <Form.Item name="id_barang" label="Cari barang">
+        <Form.Item name="id_barang" label="Cari ID barang">
           <Select
             searchValue={searchInput}
-            onSearch={onChangeSearchInput}
+            onSearch={(e) => onChangeSearchInput(e,'id')}
+            onChange={onSelectInput}
             className='w-full'
             showSearch
             placeholder="Search to Select"
             optionFilterProp="children"
           >
-            {options?.map((o)=>(<Option key={o.id} value={o.nomor_material}>{o.nama_material}</Option>))}
+            {options?.map((o)=>(<Option key={o.id} value={JSON.stringify(o)}>{o.nomor_material}</Option>))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item name="id_barang" label="Cari nama barang">
+          <Select
+            searchValue={searchInputSecond}
+            onSearch={(e) => onChangeSearchInput(e,'name')}
+            onChange={onSelectInput}
+            className='w-full'
+            showSearch
+            placeholder="Search to Select"
+            optionFilterProp="children"
+          >
+            {options?.map((o)=>(<Option key={o.id} value={JSON.stringify(o)}>{o.nama_material}</Option>))}
           </Select>
         </Form.Item>
 
@@ -80,6 +95,21 @@ function index() {
           ]}
         >
           <Input placeholder="posisi barang..." />
+        </Form.Item>
+
+        <Form.Item
+          name="note"
+          label="Keterangan"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your keterangan',
+            },
+          ]}
+        >
+          <TextArea 
+            rows={4}
+            placeholder="keterangan..." />
         </Form.Item>
 
         <Form.Item>

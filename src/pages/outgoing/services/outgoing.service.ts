@@ -2,10 +2,10 @@ import postData from '@/commons/utils/postData';
 
 export interface IData {
   nomor_material:string,
+  nama_barang:string,
   date:string,
   posisi:string,
   qty: 10
-
 }
 
 interface IDataService{

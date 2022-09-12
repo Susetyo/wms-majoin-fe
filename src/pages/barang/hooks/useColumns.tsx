@@ -11,12 +11,12 @@ interface DataType {
 function useColumns() {
   const columns: ColumnsType<DataType> = [
     {
-      title: 'Nomor',
+      title: 'ID Barang',
       dataIndex: 'nomor_material',
       key: 'nomor_material',
     },
     {
-      title: 'Nama',
+      title: 'Nama Barang',
       dataIndex: 'nama_material',
       key: 'nama_material',
     },

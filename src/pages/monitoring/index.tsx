@@ -1,7 +1,7 @@
 import useMonitoring from "./hooks/useMonitoring"
 import useColumns from "./hooks/useColumns"
 import {Table, Input, Button} from 'antd'
-import {SearchOutlined, FilterOutlined } from '@ant-design/icons';
+import {SearchOutlined, FilterOutlined, FilePdfOutlined } from '@ant-design/icons';
 import FilterSide from './components/FilterSide'
 import useMonitoringStore from "./store";
 
@@ -17,7 +17,8 @@ function index() {
     onClose,
     onChangeRangePicker,
     onSelectType,
-    onSubmitFilterSide
+    onSubmitFilterSide,
+    onGeneratePdf
   } = useMonitoring()
 
   const {dataTable} = useMonitoringStore((state)=>state)
@@ -26,27 +27,38 @@ function index() {
   return (
     <div className="bg-white p-5">
       <h1 className="mb-2 text-xl">MONITORING</h1>
-      <div className="w-full flex gap-4">
-        <Input 
-          size="large"
-          placeholder="search"
-          prefix={<SearchOutlined />}
-          className="w-[500px] mb-5"
-          onChange={onChangeSearchInput}
-        />
+      <div className="w-full flex justify-between flex-wrap">
+        <div className="flex flex-wrap gap-4">
+          <Input 
+            size="large"
+            placeholder="search"
+            prefix={<SearchOutlined />}
+            className="w-[500px] mb-5"
+            onChange={onChangeSearchInput}
+          />
+          <Button
+            className="flex items-center"
+            size="large"
+            icon={<FilterOutlined />}
+            onClick={onShowDrawer}
+          >
+            Search
+          </Button>
+        </div>
         <Button
-          className="flex items-center"
-          size="large"
-          icon={<FilterOutlined />}
-          onClick={onShowDrawer}
-        >
-          Search
-        </Button>
+            className="flex items-center"
+            size="large"
+            icon={<FilePdfOutlined />}
+            onClick={onGeneratePdf}
+          >
+            Generate PDF
+          </Button>
       </div>
       <Table 
         columns={columns} 
         dataSource={dataTable.rows}
         loading={queryMonitoring.isLoading}
+        scroll={{ x: 1500 }}
         pagination={{
           current:page, 
           pageSize:5,

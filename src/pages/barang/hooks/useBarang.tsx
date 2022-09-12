@@ -12,7 +12,7 @@ interface IPagination{
 
 const useBarang = () => {
   const LIMIT = 5;
-  const {filter, setFilter, setDataTable} = useBarangStore((state)=> state)
+  const {filter, setFilter, setDataTable, modal, setModal} = useBarangStore((state)=> state)
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5);
   const [searchInput, setSearchInput] = useState<string>('');
@@ -54,12 +54,15 @@ const useBarang = () => {
     setFilter({...filter,keyword:e.target.value})
   };
 
+  const onClickAddBarang = () => setModal({...modal,name:"modalAddBarang"})
+
   return{
     queryBarang,
     onChangePagination,
     page,
     pageSize,
-    onChangeSearchInput
+    onChangeSearchInput,
+    onClickAddBarang
   } 
   
 }

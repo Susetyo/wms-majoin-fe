@@ -9,6 +9,7 @@ interface IOptions {
   nama_material:string 
   nomor_material:string
   qty:number
+  posisi?:string
 }
 
 export interface IBarangStore {
@@ -20,7 +21,11 @@ export interface IBarangStore {
   filter: IFilter,
   setFilter:(val:IFilter) => void,
   options: IOptions[]
-  setOptions:(val:IOptions[]) => void
+  setOptions:(val:IOptions[]) => void,
+  selectedPosisi:string,
+  setSelectedPosisi:(val:string) => void,
+  posisiOptions: IOptions[],
+  setPosisiOptions:(val:IOptions[]) => void
 }
 
 const defaultFilter = {
@@ -36,7 +41,11 @@ const useBarangStore = create<IBarangStore>((set) => ({
   filter: defaultFilter,
   setFilter:(val) => set({filter:val}),
   options:[],
-  setOptions:(val:IOptions[]) => set({options:val})
+  setOptions:(val:IOptions[]) => set({options:val}),
+  selectedPosisi:'',
+  setSelectedPosisi:(val) =>set({selectedPosisi:val}),
+  posisiOptions: [],
+  setPosisiOptions:(val:IOptions[]) => set({posisiOptions:val})
 }))
 
 export default useBarangStore;

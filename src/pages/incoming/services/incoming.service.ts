@@ -4,8 +4,8 @@ export interface IData {
   nomor_material:string,
   date:string,
   posisi:string,
-  qty: 10
-
+  qty: 10,
+  note:string
 }
 
 interface IDataService{

@@ -1,27 +1,28 @@
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
+  RightOutlined,
+  LeftOutlined,
   UserOutlined,
   VerticalAlignTopOutlined,
   VerticalAlignBottomOutlined,
-  PieChartOutlined
+  PieChartOutlined,
+  LogoutOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, Button } from 'antd';
 import React, { ReactNode, useState, useMemo } from 'react';
 import {useNavigate, useLocation} from 'react-router-dom'
 import {MenuInfo} from 'rc-menu/lib/interface'
-const { Header, Sider, Content } = Layout;
+import useLoginStore from '@/pages/login/store';
+import useModalStore from '../store/ModalStore';
+import ModalConfirmLogout from './ModalConfirmLogout';
+import BottomUser from './BottomUser';
 
-interface IMenu {
-  key:String, 
-  item:ReactNode, 
-  domEvent:Event, 
-  keyPath: String[]
-}
+const { Sider, Content } = Layout;
 
 const LayoutBased: React.FC<{children:ReactNode}> = ({children}) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const {username} = useLoginStore((state)=>state)
+  const { modal} = useModalStore((state)=>state)
   const {pathname} = location;
   const [collapsed, setCollapsed] = useState(false);
 
@@ -43,15 +44,17 @@ const LayoutBased: React.FC<{children:ReactNode}> = ({children}) => {
   }
 
 
+
   return (
     <Layout className='h-screen'>
-      <Sider 
+      <Sider
+        className='bg-white'
         trigger={null} 
         collapsible 
         collapsed={collapsed}>
+        {collapsed ? (<Logo />) : (<TextLogo />)} 
         <div className='relative'>
           <Menu
-            theme="dark"
             mode="inline"
             defaultSelectedKeys={['/barang']}
             selectedKeys={[pathname]}
@@ -81,20 +84,48 @@ const LayoutBased: React.FC<{children:ReactNode}> = ({children}) => {
           />
           
           <Button
-            className='absolute top-4 right-[-10px] border-0 bg-white'
+            className='absolute top-[-6%] right-[-15px] border-0 bg-white'
             shape="circle"
             onClick={() => setCollapsed(!collapsed)} 
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined /> } 
+            icon={collapsed ? <RightOutlined /> : <LeftOutlined /> } 
           />
         </div>
+        <BottomUser isCollapse={collapsed} />
       </Sider>
       <Layout>
         <Content className='p-5'>
           {children}
         </Content>
+        <ModalConfirmLogout isOpen={modal.name === 'modalConfirmLogout'} />
       </Layout>
     </Layout>
   );
 };
+
+
+export const Logo = () => (
+  <div className='text-white h-[59px] flex items-center justify-center'>
+    <div className='border-2 border-[#4cb134] w-[50px] h-[50px] rounded-full flex items-center justify-center flex-col'>
+      <div className='text-[#4cb134] text-2xl'>
+        MA
+        <div className='text-red-600 text-[7px] mt-[-19px] text-center'>
+          JOIN
+        </div>
+      </div>
+    </div>
+  </div>
+)
+
+export const TextLogo = () => (
+  <div className='h-[59px] flex items-center pl-4'>
+    <div className='text-[#4cb134] text-2xl'>
+      MA
+    </div>
+    <div className='text-red-600 text-2xl'>
+      JOIN
+    </div>
+ </div>
+)
+
 
 export default LayoutBased;

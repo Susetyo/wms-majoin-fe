@@ -1,26 +1,18 @@
 import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
-
-interface DataType {
-  key: string;
-  nomor_material: string;
-  nama_material: number;
-  qty: string;
-  date:string;
-  posisi:string;
-  type:string;
-}
-
+import {DataType} from '../store';
+import userLoginStore from '@/pages/login/store'
 
 function useColumns() {
+  const {username} = userLoginStore((state)=>(state))
   const columns: ColumnsType<DataType> = [
     {
-      title: 'Nomor',
+      title: 'ID Barang',
       dataIndex: 'nomor_material',
       key: 'nomor_material',
     },
     {
-      title: 'Nama',
+      title: 'Nama Barang',
       dataIndex: 'nama_material',
       key: 'nama_material',
     },
@@ -48,6 +40,19 @@ function useColumns() {
       title: 'Type',
       dataIndex: 'type',
       key: 'type',
+    },
+    {
+      title: 'Keterangan',
+      dataIndex: 'note',
+      key: 'note',
+    },
+    {
+      title: 'User',
+      dataIndex: 'id',
+      key: 'id',
+      fixed: 'right',
+      width: 150,
+      render:(_,record) => (<div>{username}</div>)
     },
   ];
 
