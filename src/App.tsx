@@ -16,11 +16,11 @@ const App = () => {
   const {username} = useLoginStore((state)=>state);
   
 
-  useEffect(()=>{
-    if(!username){
-      navigate('/login')
-    }
-  }, [username])
+  // useEffect(()=>{
+  //   if(!username){
+  //     navigate('/login')
+  //   }
+  // }, [username])
 
   
   if(pathname === '/'){
