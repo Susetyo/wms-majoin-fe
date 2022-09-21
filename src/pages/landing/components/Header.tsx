@@ -2,6 +2,7 @@ import {useState, useCallback, useRef, useContext, useEffect} from 'react';
 import Logo from '@/assets/logo.png'
 import {DownOutlined} from '@ant-design/icons'
 import {ScrollContext} from '../utils/ScrollObserver';
+import s from '../styles/header.module.css'
 
 const Header = () =>  {
   const [imageLoaded, setImageLoaded] = useState(false)
@@ -34,13 +35,13 @@ const Header = () =>  {
       style={{
         transform:`translateY(-${progress*20})vh`
       }}
-      className='section-one-container sticky flex flex-col items-center justify-center h-screen bg-fixed bg-center bg-cover custom-img'>
+      className={`${s.headerContainer} sticky flex flex-col items-center justify-center min-h-screen bg-fixed bg-center bg-cover custom-img`}>
       <div className={`transition-opacity duration-1000 absolute top-10 flex justify-center w-full ${imageLoaded ? 'opacity-100' : 'opacity-0' }`}>
-        <img  onLoad={handleImageLoaded} height={50} width={50} className='' src={Logo} alt="logo-majoin" />
+        <img onLoad={handleImageLoaded} height={100} width={100} className='' src={Logo} alt="logo-majoin" />
       </div>
       <div className='title-section-one'>
-        <h1 className='text-center text-2xl md:text-5xl text-white tracking-tight'>PT. MAJOIN CONNES INDONESIA</h1>
-        <h2 className='text-center text-xl md:text-3xl text-white tracking-tight'>“Working together, achieve the goal together”</h2>
+        <h1 className='text-center text-3xl md:text-6xl lg:text-7xl text-white tracking-tight'>PT. MAJOIN CONNES INDONESIA</h1>
+        <h2 className='text-center text-2xl md:text-3xl lg:text-4xl text-white tracking-tight'>“Working together, achieve the goal together”</h2>
       </div>
       <DownOutlined 
         className={`

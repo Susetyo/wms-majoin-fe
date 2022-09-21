@@ -1,0 +1,8 @@
+.headerContainer{
+  background-image:linear-gradient(
+    to right bottom,
+    rgba(195, 188, 188, 0.513),
+    rgba(110, 112, 111, 0.221)), url('/src/assets/banner-zetla.jpeg');
+  background-size: cover;
+  background-position: top;
+}

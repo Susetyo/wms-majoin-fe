@@ -5,13 +5,4 @@
     rgba(110, 112, 111, 0.221)), url('/src/assets/banner-zetla.jpeg');
   background-size: cover;
   background-position: top;
-  /* box-sizing: border-box; */
-  /* position: relative; */
 }
-
-/* .section-one-container .title-section-one{
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  white-space: nowrap;
-} */
