@@ -24,7 +24,7 @@ const useBarang = () => {
   const queryBarang = useQuery(
     ['queryBarang'],
     () => barangService({
-      url:`http://localhost:8000/api/barang?page=${page}&keyword=${searchInput}&limit=${LIMIT}&offset=${offset}`
+      url:`${import.meta.env.VITE_REST_URL}/api/barang?page=${page}&keyword=${searchInput}&limit=${LIMIT}&offset=${offset}`
     }),
     {
       onError:(err:any) => {

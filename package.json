@@ -5,18 +5,21 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --max_old_space_size=4096",
     "preview": "vite preview"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.2.3",
     "@tanstack/react-query-devtools": "^4.2.3",
     "antd": "4.23.1",
+    "dotenv": "^16.0.3",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.25",
+    "pm2": "^5.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "6",
+    "serve": "^14.0.1",
     "zustand": "^4.0.0"
   },
   "devDependencies": {

@@ -7,9 +7,10 @@ interface ILoginService{
 
 const loginService = async({username,password}:ILoginService) => {
   const param = {
-    url:'http://localhost:8000/api/user/auth',
+    url:`${import.meta.env.VITE_REST_URL}/api/user/auth`,
     data:{username,password}
   }
+
   const fetch = await postData(param);
 
   if(fetch.ok){

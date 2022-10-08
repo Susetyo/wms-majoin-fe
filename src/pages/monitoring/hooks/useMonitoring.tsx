@@ -34,7 +34,7 @@ const useMonitoring = () => {
       const queryUrl = `keyword=${searchInput}&startDate=${startDate}&endDate=${endDate}&type=${filter.type}&limit=${LIMIT}&offset=${offset}`
 
       return barangService({
-        url:`http://localhost:8000/api/transaction?${queryUrl}`
+        url:`${import.meta.env.VITE_REST_URL}/api/transaction?${queryUrl}`
       })
     },
     {

@@ -19,7 +19,7 @@ const useIncoming = () => {
   const debounce = useDebounce<string>(filter.keyword, 200);
 
   const queryPostIncoming = useMutation((data:IData) => incomingService({
-    url:'http://localhost:8000/api/incoming',
+    url:`${import.meta.env.VITE_REST_URL}/api/incoming`,
     data,
   }),{  
     onSuccess:(res)=>{
@@ -34,7 +34,7 @@ const useIncoming = () => {
   useQuery(
     ['querySearchBarang',debounce],
     () => barangService({
-      url:`http://localhost:8000/api/barang/search?nomorMaterial=${filter.keyword}&namaMaterial=${filter.keyword}`
+      url:`${import.meta.env.VITE_REST_URL}/api/barang/search?nomorMaterial=${filter.keyword}&namaMaterial=${filter.keyword}`
     }),
     {
       onError:(err:any) => {

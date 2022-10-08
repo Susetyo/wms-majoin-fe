@@ -33,7 +33,7 @@ const ModalAddBarang = ({isOpen}:IModal) => {
       console.log(values)
       const {nama_material, nomor_material} = values;
       queryAddBarang.mutate({
-        url:'http://localhost:8000/api/barang',
+        url:`${import.meta.env.VITE_REST_URL}/api/barang`,
         data:{
           nama_material,
           nomor_material,

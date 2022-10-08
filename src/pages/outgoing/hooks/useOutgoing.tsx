@@ -77,7 +77,7 @@ const useOutgoing = () => {
   }
 
   const queryPostOutoging = useMutation((data:IData) => outgoingService({
-    url:'http://localhost:8000/api/outgoing',
+    url:`${import.meta.env.VITE_REST_URL}/api/outgoing`,
     data,
   }),{  
     onSuccess:(res)=>{
@@ -93,7 +93,7 @@ const useOutgoing = () => {
   useQuery(
     ['querySearchBarang',debounce],
     () => barangService({
-      url:`http://localhost:8000/api/barang/search?nomorMaterial=${filter.keyword}&namaMaterial=${filter.keyword}&type=outgoing`
+      url:`${import.meta.env.VITE_REST_URL}/api/barang/search?nomorMaterial=${filter.keyword}&namaMaterial=${filter.keyword}&type=outgoing`
     }),
     {
       onError:(err:any) => {
