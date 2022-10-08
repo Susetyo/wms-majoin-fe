@@ -15,19 +15,12 @@ const App = () => {
   const {pathname} = location;
   const {username} = useLoginStore((state)=>state);
   
+ 
+  // if(pathname === '/'){
+  //   return(<Landing />)
+  // }
 
-  // useEffect(()=>{
-  //   if(!username){
-  //     navigate('/login')
-  //   }
-  // }, [username])
-
-  
-  if(pathname === '/'){
-    return(<Landing />)
-  }
-
-  if(pathname === '/login'){
+  if(pathname === '/login' || pathname === '/'){
     return (
       <div className="bg-white">
         <Header className="bg-white border-gray-400 border-b-[1px] flex items-center justify-center">
