@@ -8,7 +8,9 @@ const postData = async({url,data}:IPostData) => {
     method: 'POST',
     cache: 'no-cache',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     },
     body: JSON.stringify(data)
   });
