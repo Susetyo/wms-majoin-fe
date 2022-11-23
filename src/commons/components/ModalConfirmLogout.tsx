@@ -1,15 +1,25 @@
 import {Modal, Button } from 'antd';
 import useModalStore, {defaultModal} from '../store/ModalStore';
 import useLoginStore from '@/pages/login/store';
+import {useNavigate} from "react-router-dom";
 
 interface IModal{
   isOpen:boolean
 }
 
 const ModalConfirmLogout = ({isOpen}:IModal) => {
+  const navigate = useNavigate()
   const {setModal} = useModalStore((state)=>state);
   const loginStore = useLoginStore;
   const {setUsername,setPassword} = loginStore((state)=>state)
+
+  const onCancel = () => {
+    setUsername('');
+    setPassword('')
+    loginStore.persist.clearStorage();
+    setModal(defaultModal)
+    navigate('/login',{replace:true})
+  }
 
   return(
     <Modal
@@ -26,12 +36,7 @@ const ModalConfirmLogout = ({isOpen}:IModal) => {
           Cancel
         </Button>
         <Button 
-          onClick={() => {
-            setUsername('');
-            setPassword('')
-            loginStore.persist.clearStorage();
-            setModal(defaultModal)
-          }}
+          onClick={onCancel}
         >
           Ok
         </Button>

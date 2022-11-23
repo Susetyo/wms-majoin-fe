@@ -43,6 +43,75 @@ const LayoutBased: React.FC<{children:ReactNode}> = ({children}) => {
     }
   }
 
+  const items = useMemo(() => {
+    switch(username){
+      case 'Shofi.Majoin':
+      case 'Sintya.majoin':
+      case 'User1.Majoin':
+        return [{
+          key: '/incoming',
+          icon: <VerticalAlignBottomOutlined />,
+          label: 'Incoming',
+        }]
+      case 'Lia.Majoin':
+        return[{
+          key: '/barang',
+          icon: <UserOutlined />,
+          label: 'Barang',
+        }]
+      case 'Afin.Majoin':
+        return[{
+          key: '/barang',
+          icon: <UserOutlined />,
+          label: 'Barang',
+        },              {
+          key: '/monitoring',
+          icon: <PieChartOutlined />,
+          label: 'Monitoring'
+        }]
+      case 'Gaby.Majoin':
+        return [{
+          key: '/outgoing',
+          icon: <VerticalAlignTopOutlined />,
+          label: 'Outgoing',
+        },
+        {
+          key: '/monitoring',
+          icon: <PieChartOutlined />,
+          label: 'Monitoring'
+        }]
+      case 'User2.Majoin':
+        return [{
+          key: '/outgoing',
+          icon: <VerticalAlignTopOutlined />,
+          label: 'Outgoing',
+        }]
+      default:
+        return [
+          {
+            key: '/barang',
+            icon: <UserOutlined />,
+            label: 'Barang',
+          },
+          {
+            key: '/incoming',
+            icon: <VerticalAlignBottomOutlined />,
+            label: 'Incoming',
+          },
+          {
+            key: '/outgoing',
+            icon: <VerticalAlignTopOutlined />,
+            label: 'Outgoing',
+          },
+          {
+            key: '/monitoring',
+            icon: <PieChartOutlined />,
+            label: 'Monitoring'
+          }
+        ]
+    }
+  },[username])
+
 
 
   return (
@@ -58,28 +127,7 @@ const LayoutBased: React.FC<{children:ReactNode}> = ({children}) => {
             mode="inline"
             defaultSelectedKeys={['/barang']}
             selectedKeys={[pathname]}
-            items={[
-              {
-                key: '/barang',
-                icon: <UserOutlined />,
-                label: 'Barang',
-              },
-              {
-                key: '/incoming',
-                icon: <VerticalAlignBottomOutlined />,
-                label: 'Incoming',
-              },
-              {
-                key: '/outgoing',
-                icon: <VerticalAlignTopOutlined />,
-                label: 'Outgoing',
-              },
-              {
-                key: '/monitoring',
-                icon: <PieChartOutlined />,
-                label: 'Monitoring'
-              }
-            ]}
+            items={items}
             onClick={onClickMenu}
           />
           
