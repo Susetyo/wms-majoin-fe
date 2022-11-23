@@ -52,7 +52,7 @@ function useColumns() {
       key: 'id',
       fixed: 'right',
       width: 150,
-      render:(_,record) => (<div>{username}</div>)
+      render:(_,record) => (<div>{record.username}</div>)
     },
   ];
 

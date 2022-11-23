@@ -12,10 +12,24 @@ interface Params {
     y:number,
     options:any
   }
-  titleSave:string
+  titleSave:string,
+  footer?:{
+    title:{
+      text:string,
+      x:number,
+      y:number,
+      options:any
+    },
+    name:{
+      text:string,
+      x:number,
+      y:number,
+      options:any
+    }
+  }
 }
 
-const useGeneratePdf = ({tableColumn,tableRows,additionalOptions, title, titleSave}:Params) => {
+const useGeneratePdf = ({tableColumn,tableRows,additionalOptions, title, titleSave, footer}:Params) => {
   const doc = new jsPDF();
 
   const options = {
@@ -28,6 +42,11 @@ const useGeneratePdf = ({tableColumn,tableRows,additionalOptions, title, titleSa
 
   if(title){
     doc.text(title.text,title.x,title.y,title.options)
+  }
+
+  if(footer){
+    doc.text(footer.title.text,footer.title.x,footer.title.y,footer.title.options)
+    doc.text(footer.name.text,footer.name.x,footer.name.y,footer.name.options)
   }
 
   doc.save(titleSave);

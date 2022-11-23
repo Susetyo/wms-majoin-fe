@@ -8,6 +8,7 @@ export interface DataType {
   date:string;
   posisi:string;
   type:string;
+  username?:string;
 }
 
 export interface IFilter {

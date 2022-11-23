@@ -141,7 +141,7 @@ const LayoutBased: React.FC<{children:ReactNode}> = ({children}) => {
         <BottomUser isCollapse={collapsed} />
       </Sider>
       <Layout>
-        <Content className='p-5'>
+        <Content className='p-5 overflow-scroll'>
           {children}
         </Content>
         <ModalConfirmLogout isOpen={modal.name === 'modalConfirmLogout'} />

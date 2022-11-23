@@ -14,7 +14,7 @@ import jsPDF from 'jspdf';
 
 const useOutgoing = () => {
   const [form] = Form.useForm();
-  const {id} = useLoginStore((state)=> state);
+  const {id, username} = useLoginStore((state)=> state);
   const {filter, setFilter, options, setOptions, posisiOptions, setPosisiOptions, selectedPosisi, setSelectedPosisi} = useBarangStore((state)=> state)
   const [searchInput, setSearchInput] = useState<string>('');
   const [searchInputSecond, setSearchInputSecond] = useState<string>('');
@@ -23,6 +23,7 @@ const useOutgoing = () => {
   const generatePdf = (dataTable:any) => {
     const doc = new jsPDF()
     const pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
     
     const tableColumn = ["Tanggal", "ID Barang", "Nama Barang", "Qty", "Posisi","Keterangan"];
     
@@ -73,7 +74,26 @@ const useOutgoing = () => {
 
     const titleSave =   `surat_jalan_${moment(new Date()).format('YYYYMMDDhhmm')}.pdf`;
 
-    useGeneratePdf({tableColumn,tableRows,additionalOptions,title, titleSave});
+    const footer = {
+      title:{
+        text: 'Penanggung Jawab',
+        x:10,
+        y:pageHeight-30,
+        options:{
+          align:'left'
+        }
+      },
+      name:{
+        text: username,
+        x:10,
+        y:pageHeight-20,
+        options:{
+          align:'left'
+        }
+      }
+    }
+
+    useGeneratePdf({tableColumn,tableRows,additionalOptions,title, titleSave,footer});
   }
 
   const queryPostOutoging = useMutation((data:IData) => outgoingService({

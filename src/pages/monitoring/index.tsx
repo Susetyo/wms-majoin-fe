@@ -61,7 +61,7 @@ function index() {
         scroll={{ x: 1500 }}
         pagination={{
           current:page, 
-          pageSize:5,
+          pageSize:10,
           total:dataTable.totalRows,
           onChange:(page,pageSize) => {onChangePagination({page,pageSize})}
         }} />

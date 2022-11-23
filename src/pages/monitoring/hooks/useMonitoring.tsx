@@ -8,6 +8,7 @@ import {Form} from 'antd';
 import moment from 'moment';
 import useGeneratePdf from "@/commons/utils/useGeneratePdf";
 import jsPDF from 'jspdf';
+import useLoginStore from '@/pages/login/store';
 
 interface IPagination{
   page:number,
@@ -16,7 +17,7 @@ interface IPagination{
 
 const useMonitoring = () => {
   const [form] = Form.useForm();
-  const LIMIT = 5;
+  const LIMIT = 10;
   const {filter, setFilter, setDataTable, dataTable} = useMonitoringStore((state)=> state)
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5);
@@ -24,6 +25,7 @@ const useMonitoring = () => {
   const [offset, setOffset] = useState<number>(0);
   const [open, setOpen] = useState(false);
   const debounce = useDebounce<string>(filter.keyword, 500);
+  const {username} = useLoginStore((state)=>state)
   const queryClient = useQueryClient();
 
   const queryMonitoring = useQuery(
@@ -95,7 +97,7 @@ const useMonitoring = () => {
   const onGeneratePdf = () => {
     const doc = new jsPDF()
     const pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
-    const tableColumn = ["Nomor", "Nama", "Qty", "Posisi", "Date","Type"];
+    const tableColumn = ["Nomor", "Nama", "Qty", "Posisi", "Date","Type", "User"];
     const tableRows:any = dataTable.rows.map(d => {
       const rowData = [
         d.nomor_material,
@@ -103,7 +105,8 @@ const useMonitoring = () => {
         d.qty,
         d.posisi,
         moment(d.date).format('YYYY-MM-DD'),
-        d.type
+        d.type,
+        d.username
       ];
       return(rowData);
     });
@@ -144,7 +147,6 @@ const useMonitoring = () => {
     }
 
     const titleSave = `report_${moment(new Date()).format('YYYYMMDDhhmm')}.pdf`;
-
     
     useGeneratePdf({tableColumn,tableRows,additionalOptions, title, titleSave})
   }
