@@ -14,13 +14,14 @@ const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const {pathname} = location;
-  const {username} = useLoginStore((state)=>state);
+  const {username, id} = useLoginStore((state)=>state);
+
 
   // if(pathname === '/'){
   //   return(<Landing />)
   // }
 
-  if(pathname === '/login' || pathname === '/'){
+  if(pathname === '/login' || pathname === '/' || !id){
     return (
       <div className="bg-white">
         <Header className="bg-white border-gray-400 border-b-[1px] flex items-center justify-center">

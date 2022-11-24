@@ -11,11 +11,12 @@ const ModalConfirmLogout = ({isOpen}:IModal) => {
   const navigate = useNavigate()
   const {setModal} = useModalStore((state)=>state);
   const loginStore = useLoginStore;
-  const {setUsername,setPassword} = loginStore((state)=>state)
+  const {setUsername,setPassword, setId} = loginStore((state)=>state)
 
   const onCancel = () => {
     setUsername('');
-    setPassword('')
+    setPassword('');
+    setId('');
     loginStore.persist.clearStorage();
     setModal(defaultModal)
     navigate('/login',{replace:true})
