@@ -33,7 +33,7 @@ const useMonitoring = () => {
     () => {
       const startDate = filter.date?.length > 0 ? moment(filter.date[0]).format('YYYY-MM-DD') : '';
       const endDate = filter.date?.length > 0 ? moment(filter.date[1]).format('YYYY-MM-DD') : '';
-      const queryUrl = `keyword=${searchInput}&startDate=${startDate}&endDate=${endDate}&type=${filter.type}&limit=${LIMIT}&offset=${offset}`
+      let queryUrl = `keyword=${searchInput}&startDate=${startDate}&endDate=${endDate}&type=${filter.type ? filter.type : ''}&limit=${LIMIT}&offset=${offset}`
 
       return barangService({
         url:`${import.meta.env.VITE_REST_URL}/api/transaction?${queryUrl}`
@@ -94,11 +94,19 @@ const useMonitoring = () => {
     setFilter({...filter,date:values?.date,type:values?.type})
   }
 
-  const onGeneratePdf = () => {
+  const onGeneratePdf = async() => {
+    const startDate = filter.date?.length > 0 ? moment(filter.date[0]).format('YYYY-MM-DD') : '';
+    const endDate = filter.date?.length > 0 ? moment(filter.date[1]).format('YYYY-MM-DD') : '';
+    let queryUrl = `startDate=${startDate}&endDate=${endDate}&type=${filter.type}`
+     
+    const getData = await barangService({
+      url:`${import.meta.env.VITE_REST_URL}/api/transaction?${queryUrl}`
+    });
+
     const doc = new jsPDF()
     const pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
     const tableColumn = ["Nomor", "Nama", "Qty", "Posisi", "Date","Type", "User"];
-    const tableRows:any = dataTable.rows.map(d => {
+    const tableRows:any = getData.rows.map(d => {
       const rowData = [
         d.nomor_material,
         d.nama_material,
@@ -147,8 +155,7 @@ const useMonitoring = () => {
     }
 
     const titleSave = `report_${moment(new Date()).format('YYYYMMDDhhmm')}.pdf`;
-    
-    useGeneratePdf({tableColumn,tableRows,additionalOptions, title, titleSave})
+    useGeneratePdf({tableColumn,tableRows,additionalOptions, title, titleSave})  
   }
 
   return{

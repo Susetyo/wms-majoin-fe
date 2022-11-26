@@ -8,26 +8,32 @@ import Landing from '@/pages/landing';
 
 
 const routeUrl = [
-{
-  path:'/',
-  element:Landing
-}, 
-{
-  path:'/login',
-  element: Login
-},{
-  path:'/barang',
-  element: Barang
-},{
-  path:'/incoming',
-  element: Incoming
-},{
-  path:'/outgoing',
-  element: Outgoing
-},{
-  path:'/monitoring',
-  element: Monitoring
-}];
+  {
+    path:'/login',
+    element: Login
+  },
+  {
+    
+    path:'/barang',
+    element: Barang
+  },
+  {
+    path:'/incoming',
+    element: Incoming
+  },
+  {
+    path:'/outgoing',
+    element: Outgoing
+  },
+  {
+    path:'/monitoring',
+    element: Monitoring
+  },
+  {
+    path:'/',
+    element:Landing
+  }
+];
 
 
 const Route = () => (

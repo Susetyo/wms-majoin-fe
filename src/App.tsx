@@ -17,11 +17,11 @@ const App = () => {
   const {username, id} = useLoginStore((state)=>state);
 
 
-  // if(pathname === '/'){
-  //   return(<Landing />)
-  // }
+  if(pathname === '/' && !id){
+    return(<Landing />)
+  }
 
-  if(pathname === '/login' || pathname === '/' || !id){
+  if(pathname === '/login' || !id){
     return (
       <div className="bg-white">
         <Header className="bg-white border-gray-400 border-b-[1px] flex items-center justify-center">

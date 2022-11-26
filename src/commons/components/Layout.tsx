@@ -44,22 +44,22 @@ const LayoutBased: React.FC<{children:ReactNode}> = ({children}) => {
   }
 
   const items = useMemo(() => {
-    switch(username){
-      case 'Shofi.Majoin':
-      case 'Sintya.majoin':
-      case 'User1.Majoin':
+    switch(username.toLocaleLowerCase()){
+      case 'shofi.majoin':
+      case 'sintya.majoin':
+      case 'user1.majoin':
         return [{
           key: '/incoming',
           icon: <VerticalAlignBottomOutlined />,
           label: 'Incoming',
         }]
-      case 'Lia.Majoin':
+      case 'lia.majoin':
         return[{
           key: '/barang',
           icon: <UserOutlined />,
           label: 'Barang',
         }]
-      case 'Afin.Majoin':
+      case 'afin.majoin':
         return[{
           key: '/barang',
           icon: <UserOutlined />,
@@ -69,7 +69,7 @@ const LayoutBased: React.FC<{children:ReactNode}> = ({children}) => {
           icon: <PieChartOutlined />,
           label: 'Monitoring'
         }]
-      case 'Gaby.Majoin':
+      case 'gaby.majoin':
         return [{
           key: '/outgoing',
           icon: <VerticalAlignTopOutlined />,
@@ -80,7 +80,7 @@ const LayoutBased: React.FC<{children:ReactNode}> = ({children}) => {
           icon: <PieChartOutlined />,
           label: 'Monitoring'
         }]
-      case 'User2.Majoin':
+      case 'user2.majoin':
         return [{
           key: '/outgoing',
           icon: <VerticalAlignTopOutlined />,
