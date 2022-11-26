@@ -20,7 +20,7 @@ const SectionTwo = () => (
             </div>
           </WorkLeft>
           <WorkRight progress={progress}>
-            <div className='h-[300px] lg:h-[600px] w-[800] rounded-lg'>
+            <div className='h-[500px] lg:h-[600px] w-[800] rounded-lg'>
               <img src={WhiteProduct} className="w-full h-full object-cover rounded-lg" alt="rolling-papper" />
             </div>
           </WorkRight>
@@ -37,7 +37,7 @@ const SectionTwo = () => (
             </div>
           </WorkLeft>
           <WorkRight progress={progress}>
-            <div className='h-[300px] lg:h-[600px] w-[800] rounded-lg'>
+            <div className='h-[500px] lg:h-[600px] w-[800] rounded-lg'>
               <img src={BrownProduct} className="w-full h-full object-cover rounded-lg" alt="rolling-papper" />
             </div>          
           </WorkRight>
@@ -54,7 +54,7 @@ const SectionTwo = () => (
           </div>
         </WorkLeft>
         <WorkRight progress={progress}>
-          <div className='h-[300px] lg:h-[600px] w-[800] rounded-lg'>
+          <div className='h-[500px] lg:h-[600px] w-[800] rounded-lg'>
             <img src={BlackProduct} className="w-full h-full object-cover rounded-lg" alt="rolling-papper" />
           </div>             
         </WorkRight>

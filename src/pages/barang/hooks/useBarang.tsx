@@ -40,7 +40,7 @@ const useBarang = () => {
     queryClient.removeQueries(['queryBarang'], { exact: true })
     queryClient.cancelQueries(['queryBarang'], { exact: true })
     queryBarang.refetch()
-  },[debounce,page])
+  },[debounce,page, modal])
 
 
   const onChangePagination = ({page,pageSize}:IPagination) => {

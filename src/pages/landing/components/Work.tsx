@@ -18,7 +18,7 @@ export const WorkLeft: React.FC<{children:any,progress:number}> = ({children, pr
     <div className='flex flex-col items-center justify-center text-3xl lg:text-3xl h-[30vh] lg:h-auto' style={{
       transform:`translateY(${translateY}px)`
     }}>
-      <div className='leading-10'>{children}</div>
+      <div className='leading-10 w-full p-5'>{children}</div>
     </div>
   )
 }
