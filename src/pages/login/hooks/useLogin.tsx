@@ -2,62 +2,64 @@ import { ChangeEvent, useMemo } from "react";
 import useLoginStore from "../store";
 import { useMutation } from "@tanstack/react-query";
 import loginService from "../services/login.service";
-import {message} from 'antd';
-import {useNavigate} from "react-router-dom";
+import { message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const useLogin = () => {
-  const navigate = useNavigate()
-  const {username, password,setUsername, setPassword, setId} = useLoginStore((state) => state);
-  const onChangeUsername = (e:ChangeEvent<HTMLInputElement>) => setUsername(e.target.value);
-  const onChangePassword = (e:ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
-  
-  const generateUrl = () => {
-    switch(username){
-      case 'Shofi.Majoin':
-      case 'Sintya.majoin':
-      case 'User1.Majoin':
-        return '/incoming'
-      case 'Lia.Majoin':
-        return'/barang'
-      case 'Afin.Majoin':
-        return'/barang'
-      case 'Gaby.Majoin':
-        return '/outgoing'
-      case 'User2.Majoin':
-        return '/outgoing'
+  const navigate = useNavigate();
+  const { username, password, setUsername, setPassword, setId, setRole, role } =
+    useLoginStore((state) => state);
+  const onChangeUsername = (e: ChangeEvent<HTMLInputElement>) =>
+    setUsername(e.target.value);
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) =>
+    setPassword(e.target.value);
+
+  const generateUrl = (role: string) => {
+    switch (role) {
+      case "admin_i":
+        return "/incoming";
+      case "admin_b":
+      case "admin_bm":
+        return "/barang";
+      case "admin_o":
+      case "admin_om":
+        return "/outgoing";
       default:
-        return '/barang'
+        return "/monitoring";
     }
-  }
+  };
 
-  const loginQuery = useMutation(async() => loginService({username, password}),{
-    onSuccess(data) {
-      if(data.length > 0){
-        setId(data[0]?.id);
-        message.success('Login Success');
-        navigate(generateUrl(),{replace:true})
-      }else{
-        console.log('wrong password')
-        message.error('Please check your username and password');
-      }
-    },
-    onError(error:any) {
-      message.error(error);
-    },
-  })
-  
-  const onSubmit = async() => {
-    if(username && password){
-      loginQuery.mutate()
+  const loginQuery = useMutation(
+    async () => loginService({ username, password }),
+    {
+      onSuccess(data) {
+        if (data.length > 0) {
+          setId(data[0]?.id);
+          setRole(data[0]?.role);
+          message.success("Login Success");
+          navigate(generateUrl(data[0]?.role), { replace: true });
+        } else {
+          console.log("wrong password");
+          message.error("Please check your username and password");
+        }
+      },
+      onError(error: any) {
+        message.error(error);
+      },
     }
-  }
+  );
 
+  const onSubmit = async () => {
+    if (username && password) {
+      loginQuery.mutate();
+    }
+  };
 
-  return{
+  return {
     onChangeUsername,
     onChangePassword,
-    onSubmit
-  }
-}
+    onSubmit,
+  };
+};
 
 export default useLogin;
