@@ -10,6 +10,7 @@ import outgoingService, { IData } from "../services/outgoing.service";
 import moment from "moment";
 import useGeneratePdf from "@/commons/utils/useGeneratePdf";
 import jsPDF from "jspdf";
+import uniqueFunc from "@/commons/utils/uniqueFunc";
 
 const useOutgoing = () => {
   const [form] = Form.useForm();
@@ -157,7 +158,7 @@ const useOutgoing = () => {
         message.error(err);
       },
       onSuccess: (res: any) => {
-        setPosisiOptions(res?.incomingLocation);
+        setPosisiOptions(uniqueFunc(res?.incomingLocation, "posisi"));
         setOptions(res?.rows);
       },
     }
