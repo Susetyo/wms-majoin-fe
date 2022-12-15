@@ -133,8 +133,9 @@ const useMonitoring = () => {
       "Date",
       "Type",
       "User",
+      "Keterangan",
     ];
-    const tableRows: any = getData.rows.map((d) => {
+    const tableRows: any = getData.rows.map((d: any) => {
       const rowData = [
         d.nomor_material,
         d.nama_material,
@@ -143,6 +144,7 @@ const useMonitoring = () => {
         moment(d.date).format("YYYY-MM-DD"),
         d.type,
         d.username,
+        d.note,
       ];
       return rowData;
     });
